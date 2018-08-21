@@ -22,7 +22,7 @@ class Unit(models.Model):
     deleted = models.BooleanField(default=False)
 
     def clean(self):
-        if self.end <= self.start:
+        if self.end and self.start and self.end <= self.start:
             raise ValidationError({
                 'end': _('End date should be after start date')
             })
@@ -52,8 +52,8 @@ class UnitUsers(models.Model):
         return str(self.unit) + " - " + str(self.user)
 
     class Meta:
-        verbose_name = 'Unit User'
-        verbose_name_plural = 'Unit Users'
+        verbose_name = _('Unit User')
+        verbose_name_plural = _('Unit Users')
 
 
 class Assignment(models.Model):
@@ -63,6 +63,7 @@ class Assignment(models.Model):
     end = models.DateTimeField()
     description = models.TextField()
     attempts = models.IntegerField(default=-1)
+    total = models.IntegerField(default=-1)
     test = models.TextField()
     solution = models.TextField()
     template = models.TextField()
@@ -72,6 +73,10 @@ class Assignment(models.Model):
         if self.end <= self.start:
             raise ValidationError({
                 'end': _('End date should be after start date')
+            })
+        if self.total < 1:
+            raise ValidationError({
+                'total': _('Total Mark should be at least 1')
             })
 
     def __str__(self):
@@ -86,7 +91,6 @@ class Submission(models.Model):
     solution = models.TextField()
     marked = models.BooleanField(default=False)
     mark = models.IntegerField(default=-1)
-    total = models.IntegerField(default=-1)
     feedback = models.TextField(default="", blank=True)
 
     def clean(self):
@@ -95,13 +99,9 @@ class Submission(models.Model):
                 raise ValidationError({
                     'mark': _('Mark should be greater than or equal to zero')
                 })
-            if self.total <= 0:
+            if self.mark > self.assignment.total:
                 raise ValidationError({
-                    'total': _('Total should be greater than zero')
-                })
-            if self.mark > self.total:
-                raise ValidationError({
-                    'mark': _('Mark should be less than or equal to total')
+                    'mark': _('Mark should be less than or equal to the assignment Total Mark')
                 })
 
     def __str__(self):

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Unit List{% endblock %}
+
+{% block content %}
+    <h1>List of Units</h1>
+
+    <ul>
+    {% for unit in unit_list %}
+        <li>
+            <a href="#">{{ unit.name }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+
+    <div>
+    {% if user.is_staff %}
+        <a href="{% url 'decentmark:unit_create' %}">Create new unit</a>
+    {% endif %}
+    </div>
+{% endblock %}
