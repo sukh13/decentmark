@@ -21,5 +21,5 @@ urlpatterns = [
     path('a/<int:assignment_id>/submit/', views.submission_create, name='submission_create'),
     # Submission required
     path('s/<int:submission_id>/', views.submission_view, name='submission_view'),
-    path('s/<int:submission_id>/mark', views.submission_mark, name='submission_mark'),
+    path('s/<int:submission_id>/mark/', views.submission_mark, name='submission_mark'),
 ]
