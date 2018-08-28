@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}{{ unit.name }} - {{ assignment.name }} - {{ submissions.user.name }}{% endblock %}
+
+{% block content %}
+    <h1>Mark {{ submissions.user.name }} for {{ assignment.name}}</h1>
+
+    <form method="post" action="{% url 'decentmark:submission_mark' submission.id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}

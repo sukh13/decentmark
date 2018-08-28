@@ -22,7 +22,6 @@ class AssignmentForm(ModelForm):
     class Meta:
         model = Assignment
         fields = (
-            'unit',
             'name',
             'start',
             'end',
@@ -33,10 +32,13 @@ class AssignmentForm(ModelForm):
             'solution',
             'template',
         )
+        widgets = {
+            'start': DateInput(attrs={'type': 'date'}),
+            'end': DateInput(attrs={'type': 'date'}),
+        }
 
     def __init__(self, *args, **kwargs):
         super(AssignmentForm, self).__init__(*args, **kwargs)
-        self.fields['unit'].disabled = True
 
 
 class SubmissionForm(ModelForm):

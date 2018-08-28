@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}{{ unit.name }} {{ assignment.name }} Submissions{% endblock %}
+
+{% block content %}
+    <h1>{{ assignment.name }} Submissions</h1>
+
+    <ul>
+    {% for submission in submission_list %}
+        <li>
+            <a href="{% url 'decentmark:submission_view' submission.id %}">{{ submission.user.username }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+    <a href="{% url 'decentmark:assignment_list' unit.id %}">Return to Assignments</a>
+{% endblock %}

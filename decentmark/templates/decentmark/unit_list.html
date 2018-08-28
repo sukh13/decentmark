@@ -1,5 +1,8 @@
 {% extends "base.html" %}
-
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'decentmark/base.css' %}" type="text/css" media="screen" />
+{% endblock %}
 {% block title %}Unit List{% endblock %}
 
 {% block content %}
@@ -8,7 +11,7 @@
     <ul>
     {% for unit in unit_list %}
         <li>
-            <a href="#">{{ unit.name }}</a>
+            <a href="{% url 'decentmark:unit_view' unit.id %}">{{ unit.name }}</a>
         </li>
     {% endfor %}
     </ul>

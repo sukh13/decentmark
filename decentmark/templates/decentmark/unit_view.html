@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}{{ unit.name }}{% endblock %}
+
+{% block content %}
+    <h1>{{ unit.name }}</h1>
+    <p>{{ unit.description }}</p>
+    <p><a href="{% url 'decentmark:assignment_list' unit.id %}">Assignments</a></p>
+    {% if user.is_staff %}
+    <p><a href="{% url 'decentmark:unit_edit' unit.id %}">Edit Unit</a></p>
+    {% endif %}
+    <p><a href="{% url 'decentmark:unit_list' %}">Return to Unit List</a></p>
+{% endblock %}

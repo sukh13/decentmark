@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}{{ unit.name }} Assignments{% endblock %}
+
+{% block content %}
+    <h1>{{ unit.name }} Assignments</h1>
+
+    <ul>
+    {% for assignment in assignment_list %}
+        <li>
+            <a href="{% url 'decentmark:assignment_view' assignment.id %}">{{ assignment.name }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+
+    <div>
+    {% if user.is_staff %}
+        <a href="{% url 'decentmark:assignment_create' unit.id %}">Create new assignment</a>
+    {% endif %}
+    </div>
+    <a href="{% url 'decentmark:unit_view' unit.id %}">Unit Home</a>
+{% endblock %}

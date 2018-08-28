@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}{{ unit.name }} {{ assignment.name }}{% endblock %}
+
+{% block content %}
+<h1>{{ assignment.name }}</h1>
+<p>{{ assignment.description }}</p>
+<p><a href="{% url 'decentmark:submission_create' assignment.id %}">Make a submission</a></p>
+<p><a href="{% url 'decentmark:submission_list' assignment.id %}">View Submissions</a></p>
+{% if user.is_staff %}
+<p><a href="{% url 'decentmark:assignment_edit' assignment.id %}">Edit Assignment</a></p>
+{% endif %}
+<p><a href="{% url 'decentmark:assignment_list' unit.id %}">Return to Assignment List</a></p>
+{% endblock %}
