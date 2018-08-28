@@ -9,6 +9,10 @@ from decentmark.models import Unit, Assignment, Submission
 
 @login_required
 def unit_list(request) -> HttpResponse:
+    """
+    Unit List - List of units. Staff see all units. Non-staff see units they are enrolled in.
+    """
+
     # Staff
     if request.user.is_staff:
         unit_list = Unit.objects.all().order_by('name')
